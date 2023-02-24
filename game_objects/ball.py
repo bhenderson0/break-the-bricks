@@ -1,5 +1,7 @@
+import math
 import pygame
 import pygame.gfxdraw
+from pygame.locals import K_DOWN
 
 import constants
 
@@ -18,16 +20,33 @@ class Ball(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect()
         self.pos = vec((constants.WIDTH // 2, 20))
         self.vel = vec(0, constants.BALL_SPEED)
+        self.acc = vec(0, 0)
 
     def move(self):
-        self.pos += self.vel
+        pressed_keys = pygame.key.get_pressed()
 
+        # For development purposes
+        if pressed_keys[K_DOWN]:
+            self.pos = vec((constants.WIDTH // 2, constants.HEIGHT // 2))
+            self.vel = vec(0, constants.BALL_SPEED)
+
+        self.pos += self.vel
         self.rect.midbottom = self.pos
 
         if self.pos.y > constants.HEIGHT:
             self.pos.y = 0
+            self.vel = vec(0, constants.BALL_SPEED)
+
+        elif self.pos.y < 8:
+            self.vel = vec(self.vel.x, -self.vel.y)
+
+        elif self.pos.x < 8 or self.pos.x > constants.WIDTH - 8:
+            self.vel = vec(-self.vel.x, self.vel.y)
 
     def collide_with_paddle(self, paddle):
-        self.vel = (0, 0)
-        print(self.pos, paddle.pos)
+        pos_diff = self.pos.x - paddle.pos.x
+        if math.fabs(pos_diff) < 5:
+            self.vel = vec(0, -constants.BALL_SPEED)
+        else:
+            self.vel = vec(pos_diff / constants.BOUNCE, -constants.BALL_SPEED)
 

@@ -13,5 +13,5 @@ PLAYER_ACC = 0.75
 PLAYER_FRIC = -0.12
 
 # Ball movement
-BALL_SPEED = 4
-
+BALL_SPEED = 5
+BOUNCE = 8
