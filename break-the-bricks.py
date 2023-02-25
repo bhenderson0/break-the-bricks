@@ -3,12 +3,14 @@ import sys
 from pygame.locals import QUIT
 
 import constants
+from levels.levels import generate_level
 from game_objects.ball import Ball
 from game_objects.player import Player
 
 pygame.init()
 vec = pygame.math.Vector2
 
+level_start = False
 fps = pygame.time.Clock()
 display = pygame.display.set_mode((constants.WIDTH, constants.HEIGHT))
 pygame.display.set_caption("Break the Bricks")
@@ -27,6 +29,11 @@ while True:
 
     display.fill((0, 0, 0))
 
+    if not level_start:
+        level_start = True
+        generate_level(brick_sprites, 1)
+
+    pygame.sprite.Group.draw(brick_sprites, display)
     pygame.sprite.Group.draw(main_sprites, display)
 
     player.move()
@@ -34,6 +41,12 @@ while True:
 
     if pygame.sprite.collide_rect(player, ball):
         ball.collide_with_paddle(player)
+
+    bricks_hit = pygame.sprite.spritecollide(ball, brick_sprites, False)
+    for brick in bricks_hit:
+        if (brick.damage() < 1):
+            brick_sprites.remove(brick)
+        ball.collide_with_brick(brick)
 
     pygame.display.update()
     fps.tick(constants.FPS)

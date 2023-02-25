@@ -50,3 +50,12 @@ class Ball(pygame.sprite.Sprite):
         else:
             self.vel = vec(pos_diff / constants.BOUNCE, -constants.BALL_SPEED)
 
+    def collide_with_brick(self, brick):
+        # Hit Top or bottom
+        new_vy = -self.vel.y
+        new_vx = self.vel.x
+        # Hit Left or Right
+        if abs(brick.pos.y - self.pos.y) != (constants.B_HEIGHT / 2) - 5:
+            new_vx = -self.vel.x
+
+        self.vel = vec(new_vx, new_vy)
