@@ -14,10 +14,10 @@ class Ball(pygame.sprite.Sprite):
     """
 
     def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.surf = pygame.Surface((17, 17), pygame.SRCALPHA)
-        pygame.gfxdraw.filled_circle(self.surf, 8, 8, 8, constants.BALL_COLOUR)
-        self.rect = self.surf.get_rect()
+        super().__init__()
+        self.image = pygame.Surface((17, 17), pygame.SRCALPHA)
+        pygame.gfxdraw.filled_circle(self.image, 8, 8, 8, constants.BALL_COLOUR)
+        self.rect = self.image.get_rect()
         self.pos = vec((constants.WIDTH // 2, 20))
         self.vel = vec(0, constants.BALL_SPEED)
         self.acc = vec(0, 0)

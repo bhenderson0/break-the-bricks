@@ -13,14 +13,14 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self):
         super().__init__()
-        self.surf = pygame.Surface((76, 16))
-        # self.surf.fill((230, 0, 0))
-        # self.surf.fill((0, 100, 255, 155))
-        self.rect = self.surf.get_rect()
-        pygame.draw.circle(self.surf, constants.RED, (68, 8),  8)
-        pygame.draw.circle(self.surf, constants.RED, (8, 8),  8)
+        self.image = pygame.Surface((76, 16))
+        # self.image.fill((230, 0, 0))
+        # self.image.fill((0, 100, 255, 155))
+        self.rect = self.image.get_rect()
+        pygame.draw.circle(self.image, constants.RED, (68, 8),  8)
+        pygame.draw.circle(self.image, constants.RED, (8, 8),  8)
         pygame.draw.rect(
-                self.surf, constants.PADDLE_COLOUR, pygame.Rect(8, 0, 60, 16))
+                self.image, constants.PADDLE_COLOUR, pygame.Rect(8, 0, 60, 16))
         self.pos = vec((constants.WIDTH // 2, constants.HEIGHT - 40))
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
