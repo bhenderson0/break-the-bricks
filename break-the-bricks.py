@@ -37,16 +37,17 @@ while True:
     pygame.sprite.Group.draw(main_sprites, display)
 
     player.move()
-    ball.move()
+    ball.move(vec((player.pos.x, player.pos.y)))
 
     if pygame.sprite.collide_rect(player, ball):
         ball.collide_with_paddle(player)
 
     bricks_hit = pygame.sprite.spritecollide(ball, brick_sprites, False)
+    if bricks_hit:
+        ball.collide_with_brick(bricks_hit[0])
     for brick in bricks_hit:
         if (brick.damage() < 1):
             brick_sprites.remove(brick)
-        ball.collide_with_brick(brick)
 
     pygame.display.update()
     fps.tick(constants.FPS)
