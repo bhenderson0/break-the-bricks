@@ -30,7 +30,7 @@ class Ball(pygame.sprite.Sprite):
             self.released = True
             self.vel = vec(0, -constants.BALL_SPEED)
 
-        elif pressed_keys[K_DOWN]:
+        if pressed_keys[K_DOWN]:
             self.released = False
 
         if self.released:
@@ -62,9 +62,5 @@ class Ball(pygame.sprite.Sprite):
     def collide_with_brick(self, brick):
         # Hit Top or bottom
         new_vy = -self.vel.y
-        new_vx = self.vel.x
-        # Hit Left or Right
-        if abs(brick.pos.y - self.pos.y) != (constants.B_HEIGHT / 2) - 5:
-            new_vx = -self.vel.x
 
-        self.vel = vec(new_vx, new_vy)
+        self.vel = vec(self.vel.x, new_vy)
