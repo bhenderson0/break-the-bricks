@@ -16,7 +16,8 @@ class Ball(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pygame.Surface((17, 17), pygame.SRCALPHA)
-        pygame.gfxdraw.filled_circle(self.image, 8, 8, 8, constants.BALL_COLOUR)
+        pygame.gfxdraw.filled_circle(
+                self.image, 8, 8, 8, constants.BALL_COLOUR)
         self.rect = self.image.get_rect()
         self.pos = vec((constants.WIDTH // 2, 20))
         self.vel = vec(0, constants.BALL_SPEED)
@@ -62,5 +63,9 @@ class Ball(pygame.sprite.Sprite):
     def collide_with_brick(self, brick):
         # Hit Top or bottom
         new_vy = -self.vel.y
-
-        self.vel = vec(self.vel.x, new_vy)
+        new_vx = self.vel.x
+        # Hit one of the sides
+        if abs(self.pos.y - brick.pos.y) < constants.B_HEIGHT / 2:
+            new_vx = -self.vel.x
+            new_vy = self.vel.y
+        self.vel = vec(new_vx, new_vy)
