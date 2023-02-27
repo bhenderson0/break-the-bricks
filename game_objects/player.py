@@ -37,10 +37,10 @@ class Player(pygame.sprite.Sprite):
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
 
-        if self.pos.x > constants.WIDTH:
-            self.pos.x = 0
-        elif self.pos.x < 0:
-            self.pos.x = constants.WIDTH
+        if self.pos.x - 30 > constants.WIDTH:
+            self.pos.x = 30
+        elif self.pos.x + 30 < 0:
+            self.pos.x = constants.WIDTH - 30
 
         self.rect.midbottom = self.pos
 
