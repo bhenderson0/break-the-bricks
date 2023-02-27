@@ -29,7 +29,7 @@ class Ball(pygame.sprite.Sprite):
 
         if not self.released and pressed_keys[K_UP]:
             self.released = True
-            self.vel = vec(0, -constants.BALL_SPEED)
+            self.vel.y = -constants.BALL_SPEED
 
         if pressed_keys[K_DOWN]:
             self.released = False
@@ -38,8 +38,7 @@ class Ball(pygame.sprite.Sprite):
             self.pos += self.vel
 
             if self.pos.y > constants.HEIGHT:
-                self.pos.y = 0
-                self.vel = vec(0, constants.BALL_SPEED)
+                self.released = False
 
             elif self.pos.y < 8:
                 self.vel = vec(self.vel.x, -self.vel.y)
@@ -48,7 +47,6 @@ class Ball(pygame.sprite.Sprite):
                 self.vel = vec(-self.vel.x, self.vel.y)
 
         else:
-            self.vel = vec(0, 0)
             self.pos = vec((player_pos.x, player_pos.y - 15))
 
         self.rect.midbottom = self.pos
