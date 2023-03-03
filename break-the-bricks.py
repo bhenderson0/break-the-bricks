@@ -17,8 +17,10 @@ pygame.display.set_caption("Break the Bricks")
 
 player = Player()
 ball = Ball()
-main_sprites = pygame.sprite.Group()
-main_sprites.add(player, ball)
+paddle_sprites = pygame.sprite.Group()
+paddle_sprites.add(player)
+ball_sprites = pygame.sprite.Group()
+ball_sprites.add(ball)
 brick_sprites = pygame.sprite.Group()
 
 while True:
@@ -34,7 +36,8 @@ while True:
         generate_level(brick_sprites, 1)
 
     pygame.sprite.Group.draw(brick_sprites, display)
-    pygame.sprite.Group.draw(main_sprites, display)
+    pygame.sprite.Group.draw(paddle_sprites, display)
+    pygame.sprite.Group.draw(ball_sprites, display)
 
     player.move()
     ball.move(vec((player.pos.x, player.pos.y)))
