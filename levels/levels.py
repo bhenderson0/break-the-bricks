@@ -23,9 +23,23 @@ def level_two(group):
     group.add(Brick(225, 200, constants.YELLOW))
 
 
-levels = [level_one, level_two]
+class LevelGenerator:
+    levels = [level_one, level_two]
 
+    def __init__(self, group, start_level=2):
+        self._level = start_level
+        self.group = group
+        self.start_of_level = True
 
-def generate_level(group, level=1):
-    levels[level - 1](group)
+    def generate_level(self):
+        if self.start_of_level:
+            self.levels[self._level - 1](self.group)
+            self.start_of_level = False
+
+        elif len(self.group) == 0 and self._level < len(self.levels):
+            self._level += 1
+            self.start_of_level = True
+
+    def get_current_level(self):
+        return self._level
 

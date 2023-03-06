@@ -3,14 +3,13 @@ import sys
 from pygame.locals import QUIT
 
 import constants
-from levels.levels import generate_level
+from levels.levels import LevelGenerator
 from game_objects.ball import Ball
 from game_objects.player import Player
 
 pygame.init()
 vec = pygame.math.Vector2
 
-level_start = False
 fps = pygame.time.Clock()
 display = pygame.display.set_mode((constants.WIDTH, constants.HEIGHT))
 pygame.display.set_caption("Break the Bricks")
@@ -22,6 +21,7 @@ paddle_sprites.add(player)
 ball_sprites = pygame.sprite.Group()
 ball_sprites.add(ball)
 brick_sprites = pygame.sprite.Group()
+level_generator = LevelGenerator(brick_sprites)
 
 while True:
     for event in pygame.event.get():
@@ -30,10 +30,7 @@ while True:
             sys.exit()
 
     display.fill((0, 0, 0))
-
-    if not level_start:
-        level_start = True
-        generate_level(brick_sprites, 1)
+    level_generator.generate_level()
 
     pygame.sprite.Group.draw(brick_sprites, display)
     pygame.sprite.Group.draw(paddle_sprites, display)
