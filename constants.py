@@ -5,6 +5,7 @@ FPS = 60
 
 # Colours
 RED = (230, 0, 0)
+WHITE = (255, 255, 255)
 BALL_COLOUR = (87, 146, 207)
 PADDLE_COLOUR = (123, 123, 123)
 YELLOW = (255, 255, 94)
