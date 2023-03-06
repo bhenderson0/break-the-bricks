@@ -26,7 +26,7 @@ def level_two(group):
 class LevelGenerator:
     levels = [level_one, level_two]
 
-    def __init__(self, group, start_level=2):
+    def __init__(self, group, start_level=1):
         self._level = start_level
         self.group = group
         self.start_of_level = True
