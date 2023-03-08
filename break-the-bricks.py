@@ -45,7 +45,7 @@ while True:
     level_generator.generate_level()
 
     # Level Information
-    level_text = f'Level: {level_generator.get_current_level()}'
+    level_text = f'Level: {level_generator.level}'
     location = (constants.WIDTH // 2, 20)
     display_text(display, level_text, constants.WHITE, 24, location)
     score_text = f'Score: {score}'
@@ -77,6 +77,14 @@ while True:
         score += 10
         if (brick.damage() < 1):
             brick_sprites.remove(brick)
+
+    # Handle advancing to level or losing all balls
+    if len(brick_sprites) == 0:
+        level_generator.increment_level()
+    if ball.number == 0:
+        level_generator.reset_to_beginning()
+        score = 0
+        ball.number = 3
 
     pygame.display.update()
     fps.tick(constants.FPS)

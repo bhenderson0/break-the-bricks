@@ -27,19 +27,21 @@ class LevelGenerator:
     levels = [level_one, level_two]
 
     def __init__(self, group, start_level=1):
-        self._level = start_level
+        self.level = start_level
         self.group = group
         self.start_of_level = True
 
     def generate_level(self):
         if self.start_of_level:
-            self.levels[self._level - 1](self.group)
+            self.levels[self.level - 1](self.group)
             self.start_of_level = False
 
-        elif len(self.group) == 0 and self._level < len(self.levels):
-            self._level += 1
+    def increment_level(self):
+        if self.level < len(self.levels):
+            self.level += 1
             self.start_of_level = True
 
-    def get_current_level(self):
-        return self._level
+    def reset_to_beginning(self, start_level=1):
+        self.level = start_level
+        self.start_of_level = True
 
