@@ -13,8 +13,6 @@ vec = pygame.math.Vector2
 fps = pygame.time.Clock()
 display = pygame.display.set_mode((constants.WIDTH, constants.HEIGHT))
 pygame.display.set_caption("Break the Bricks")
-font = pygame.font.Font('freesansbold.ttf', 32)
-level_text = font.render('GeeksForGeeks', True, constants.WHITE)
 
 player = Player()
 ball = Ball()
@@ -24,6 +22,15 @@ ball_sprites = pygame.sprite.Group()
 ball_sprites.add(ball)
 brick_sprites = pygame.sprite.Group()
 level_generator = LevelGenerator(brick_sprites)
+
+
+def display_text(display, text_to_display, colour, size, location):
+    font = pygame.font.Font('freesansbold.ttf', size)
+    text = font.render(text_to_display, True, colour)
+    text_rect = text.get_rect()
+    text_rect.center = location
+    display.blit(text, text_rect)
+
 
 while True:
     for event in pygame.event.get():
@@ -35,10 +42,8 @@ while True:
     level_generator.generate_level()
 
     level_text = f'Level: {level_generator.get_current_level()}'
-    level_text_font = font.render(level_text, True, constants.WHITE)
-    level_text_rect = level_text_font.get_rect()
-    level_text_rect.center = (constants.WIDTH // 2, 20)
-    display.blit(level_text_font, level_text_rect)
+    location = (constants.WIDTH // 2, 20)
+    display_text(display, level_text, constants.WHITE, 32, location)
 
     pygame.sprite.Group.draw(brick_sprites, display)
     pygame.sprite.Group.draw(paddle_sprites, display)
