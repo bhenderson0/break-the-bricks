@@ -23,6 +23,7 @@ class Ball(pygame.sprite.Sprite):
         self.vel = vec(0, constants.BALL_SPEED)
         self.acc = vec(0, 0)
         self.released = False
+        self.number = 3
 
     def move(self, player_pos):
         pressed_keys = pygame.key.get_pressed()
@@ -33,12 +34,14 @@ class Ball(pygame.sprite.Sprite):
 
         if pressed_keys[K_DOWN]:
             self.released = False
+            self.number -= 1
 
         if self.released:
             self.pos += self.vel
 
             if self.pos.y > constants.HEIGHT:
                 self.released = False
+                self.number -= 1
 
             elif self.pos.y < 8:
                 self.vel = vec(self.vel.x, -self.vel.y)
@@ -67,3 +70,4 @@ class Ball(pygame.sprite.Sprite):
             new_vx = -self.vel.x
             new_vy = self.vel.y
         self.vel = vec(new_vx, new_vy)
+

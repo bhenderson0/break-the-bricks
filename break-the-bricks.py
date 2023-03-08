@@ -1,4 +1,5 @@
 import pygame
+import pygame.gfxdraw
 import sys
 from pygame.locals import QUIT
 
@@ -13,6 +14,8 @@ vec = pygame.math.Vector2
 fps = pygame.time.Clock()
 display = pygame.display.set_mode((constants.WIDTH, constants.HEIGHT))
 pygame.display.set_caption("Break the Bricks")
+
+score = 0
 
 player = Player()
 ball = Ball()
@@ -41,17 +44,29 @@ while True:
     display.fill((0, 0, 0))
     level_generator.generate_level()
 
+    # Level Information
     level_text = f'Level: {level_generator.get_current_level()}'
     location = (constants.WIDTH // 2, 20)
-    display_text(display, level_text, constants.WHITE, 32, location)
+    display_text(display, level_text, constants.WHITE, 24, location)
+    score_text = f'Score: {score}'
+    location = (50, 20)
+    display_text(display, score_text, constants.WHITE, 18, location)
+    location = (constants.WIDTH - 30, 20)
+    display_text(display, f'={ball.number}', constants.WHITE, 18, location)
+    location = (constants.WIDTH - 50, 20)
+    pygame.gfxdraw.filled_circle(
+                display, location[0], location[1], 8, constants.BALL_COLOUR)
 
+    # Draw bricks, paddles, and balls
     pygame.sprite.Group.draw(brick_sprites, display)
     pygame.sprite.Group.draw(paddle_sprites, display)
     pygame.sprite.Group.draw(ball_sprites, display)
 
+    # Move player paddles and balls
     player.move()
     ball.move(vec((player.pos.x, player.pos.y)))
 
+    # Handle collisions
     if pygame.sprite.collide_rect(player, ball):
         ball.collide_with_paddle(player)
 
@@ -59,6 +74,7 @@ while True:
     if bricks_hit:
         ball.collide_with_brick(bricks_hit[0])
     for brick in bricks_hit:
+        score += 10
         if (brick.damage() < 1):
             brick_sprites.remove(brick)
 
