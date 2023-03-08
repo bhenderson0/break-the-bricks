@@ -1,6 +1,5 @@
 import math
 import pygame
-import pygame.gfxdraw
 from pygame.locals import K_UP, K_DOWN
 
 import constants
@@ -24,15 +23,19 @@ class Ball(pygame.sprite.Sprite):
         self.acc = vec(0, 0)
         self.released = False
         self.number = 3
+        self.cooldown = 500
+        self.last = pygame.time.get_ticks()
 
     def move(self, player_pos):
+        now = pygame.time.get_ticks()
         pressed_keys = pygame.key.get_pressed()
 
         if not self.released and pressed_keys[K_UP]:
             self.released = True
             self.vel.y = -constants.BALL_SPEED
 
-        if pressed_keys[K_DOWN]:
+        if pressed_keys[K_DOWN] and now - self.last >= self.cooldown:
+            self.last = now
             self.released = False
             self.number -= 1
 
