@@ -15,11 +15,11 @@ SALMON = (167, 56, 62)
 PURPLE = (95, 38, 138)
 
 # Player movement
-PLAYER_ACC = 0.75
+PLAYER_ACC = 1.00
 PLAYER_FRIC = -0.12
 
 # Ball movement
-BALL_SPEED = 4
+BALL_SPEED = 4.5
 BOUNCE = 8
 
 # Bricks size
