@@ -1,5 +1,7 @@
+from random import randint
+
 import constants
-from game_objects.brick import Brick
+from game_objects.brick import Brick, BombBrick
 
 
 def level_one(group):
@@ -10,13 +12,32 @@ def level_one(group):
             constants.SALMON,
             constants.PURPLE
     ]
-    for row in range(5):
-        for col in range(14):
-            group.add(
-                    Brick(
-                        col * (constants.B_WIDTH + 2) + 30,
-                        row * (constants.B_HEIGHT + 2) + 250,
-                        colours[row]))
+    num_rows = 5
+    num_cols = 14
+    for row in range(num_rows):
+        for col in range(num_cols):
+            # Todo: Maybe add more types other than just 0 or 1
+            unlucky = randint(0, 10)
+            # Todo: Improve how the bricks get created (remove these ugly ifs)
+            if not unlucky:
+                group.add(
+                        BombBrick(
+                            col * (constants.B_WIDTH + 2) + 30,
+                            row * (constants.B_HEIGHT + 2) + 250,
+                            constants.WHITE,
+                            row * num_cols + col,
+                            row,
+                            col))
+            else:
+                group.add(
+                        Brick(
+                            col * (constants.B_WIDTH + 2) + 30,
+                            row * (constants.B_HEIGHT + 2) + 250,
+                            colours[row],
+                            row * num_cols + col,
+                            row,
+                            col))
+    return (num_rows, num_cols)
 
 
 def level_two(group):
@@ -30,10 +51,12 @@ class LevelGenerator:
         self.level = start_level
         self.group = group
         self.start_of_level = True
+        self.rows = 0
+        self.cols = 0
 
     def generate_level(self):
         if self.start_of_level:
-            self.levels[self.level - 1](self.group)
+            self.rows, self.cols = self.levels[self.level - 1](self.group)
             self.start_of_level = False
 
     def increment_level(self):

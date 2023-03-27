@@ -35,6 +35,14 @@ def display_text(display, text_to_display, colour, size, location):
     display.blit(text, text_rect)
 
 
+def explode_bricks(bricks, bricks_hit, bricks_to_hit):
+    # There is probably a better way to do this
+    if bricks_to_hit:
+        for brick in bricks:
+            if brick.number in bricks_to_hit:
+                bricks_hit.append(brick)
+
+
 while True:
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -73,6 +81,11 @@ while True:
     bricks_hit = pygame.sprite.spritecollide(ball, brick_sprites, False)
     if bricks_hit:
         ball.collide_with_brick(bricks_hit[0])
+    for brick in bricks_hit:
+        explode_bricks(
+                brick_sprites,
+                bricks_hit,
+                brick.explode(level_generator.rows, level_generator.cols))
     for brick in bricks_hit:
         score += 10
         if (brick.damage() < 1):
