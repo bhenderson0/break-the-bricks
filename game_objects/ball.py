@@ -50,6 +50,10 @@ class Ball(pygame.sprite.Sprite):
                 self.vel = vec(self.vel.x, -self.vel.y)
 
             elif self.pos.x < 8 or self.pos.x > constants.WIDTH - 8:
+                while self.pos.x < 8:
+                    self.pos.x += 1
+                while self.pos.x > constants.WIDTH - 8:
+                    self.pos.x -= 1
                 self.vel = vec(-self.vel.x, self.vel.y)
 
         else:
