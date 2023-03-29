@@ -24,7 +24,7 @@ def level_one(group):
                         BombBrick(
                             col * (constants.B_WIDTH + 2) + 30,
                             row * (constants.B_HEIGHT + 2) + 250,
-                            constants.WHITE,
+                            colours[row],
                             row * num_cols + col,
                             row,
                             col))
@@ -33,7 +33,7 @@ def level_one(group):
                         LargeBombBrick(
                             col * (constants.B_WIDTH + 2) + 30,
                             row * (constants.B_HEIGHT + 2) + 250,
-                            constants.PADDLE_COLOUR,
+                            colours[row],
                             row * num_cols + col,
                             row,
                             col))

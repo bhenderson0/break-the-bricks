@@ -31,6 +31,15 @@ class Brick(pygame.sprite.Sprite):
 
 
 class BombBrick(Brick):
+    def __init__(self, bx, by, colour, number, row, col, health=1):
+        super().__init__(bx, by, colour, number, row, col, health)
+        pygame.gfxdraw.filled_circle(
+                self.image,
+                constants.B_WIDTH // 2,
+                constants.B_HEIGHT // 2,
+                constants.B_HEIGHT // 3,
+                constants.BOMB_COLOUR)
+
     def explode(self, rows, cols, bricks_to_add):
         if self.row - 1 >= 0:
             bricks_to_add.add((self.row - 1) * cols + self.col)
@@ -43,6 +52,15 @@ class BombBrick(Brick):
 
 
 class LargeBombBrick(Brick):
+    def __init__(self, bx, by, colour, number, row, col, health=1):
+        super().__init__(bx, by, colour, number, row, col, health)
+        pygame.gfxdraw.filled_circle(
+                self.image,
+                constants.B_WIDTH // 2,
+                constants.B_HEIGHT // 2,
+                constants.B_HEIGHT // 2,
+                constants.BOMB_COLOUR)
+
     def explode(self, rows, cols, bricks_to_add):
         if self.row - 2 >= 0:
             bricks_to_add.add((self.row - 2) * cols + self.col)
