@@ -22,7 +22,7 @@ class Brick(pygame.sprite.Sprite):
         self.row = row
         self.col = col
 
-    def explode(self, rows, cols):
+    def explode(self, rows, cols, bricks_to_add):
         pass
 
     def damage(self, amount=1):
@@ -31,12 +31,9 @@ class Brick(pygame.sprite.Sprite):
 
 
 class BombBrick(Brick):
-    def explode(self, rows, cols):
-        bricks_to_add = []
-        bricks_to_add.append((self.row + 1) * cols + self.col)  # below
-        bricks_to_add.append((self.row - 1) * cols + self.col)  # above
-        bricks_to_add.append(self.number - 1)  # before
-        bricks_to_add.append(self.number + 1)  # after
-        bricks_to_add = [
-                brick for brick in bricks_to_add if 0 <= brick <= rows * cols]
-        return bricks_to_add
+    def explode(self, rows, cols, bricks_to_add):
+        for row in range(self.row - 1, self.row + 2):
+            for col in range(self.col - 1, self.col + 2):
+                curr_num = row * cols + col
+                if 0 <= row < rows and 0 <= col < cols and curr_num:
+                    bricks_to_add.add(curr_num)
