@@ -16,8 +16,8 @@ def level_one(group):
     num_cols = 14
     for row in range(num_rows):
         for col in range(num_cols):
-            brick_one = randint(0, 10)
-            brick_two = randint(0, 50)
+            brick_one = randint(0, constants.BOMB_CHANCE)
+            brick_two = randint(0, constants.BIG_BOMB_CHANCE)
             # Todo: Improve how the bricks get created (remove these ugly ifs)
             if not brick_one:
                 group.add(

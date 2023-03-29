@@ -19,10 +19,14 @@ PLAYER_ACC = 1.00
 PLAYER_FRIC = -0.12
 
 # Ball movement
-BALL_SPEED = 4.5
+BALL_SPEED = 4.5  # Above 5 causes issues
 BOUNCE = 8
 
 # Bricks size
 # Note: changing this could mess with level design
 B_WIDTH = 30
 B_HEIGHT = 25
+
+# Bomb brick chance
+BOMB_CHANCE = 10
+BIG_BOMB_CHANCE = 50
