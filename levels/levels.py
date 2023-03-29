@@ -1,7 +1,7 @@
 from random import randint
 
 import constants
-from game_objects.brick import Brick, BombBrick
+from game_objects.brick import Brick, BombBrick, LargeBombBrick
 
 
 def level_one(group):
@@ -16,15 +16,24 @@ def level_one(group):
     num_cols = 14
     for row in range(num_rows):
         for col in range(num_cols):
-            # Todo: Maybe add more types other than just 0 or 1
-            unlucky = randint(0, 10)
+            brick_one = randint(0, 10)
+            brick_two = randint(0, 50)
             # Todo: Improve how the bricks get created (remove these ugly ifs)
-            if not unlucky:
+            if not brick_one:
                 group.add(
                         BombBrick(
                             col * (constants.B_WIDTH + 2) + 30,
                             row * (constants.B_HEIGHT + 2) + 250,
                             constants.WHITE,
+                            row * num_cols + col,
+                            row,
+                            col))
+            elif not brick_two:
+                group.add(
+                        LargeBombBrick(
+                            col * (constants.B_WIDTH + 2) + 30,
+                            row * (constants.B_HEIGHT + 2) + 250,
+                            constants.PADDLE_COLOUR,
                             row * num_cols + col,
                             row,
                             col))

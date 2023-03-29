@@ -32,6 +32,26 @@ class Brick(pygame.sprite.Sprite):
 
 class BombBrick(Brick):
     def explode(self, rows, cols, bricks_to_add):
+        if self.row - 1 >= 0:
+            bricks_to_add.add((self.row - 1) * cols + self.col)
+        if self.row + 1 <= rows:
+            bricks_to_add.add((self.row + 1) * cols + self.col)
+        if self.col - 1 >= 0:
+            bricks_to_add.add(self.row * cols + (self.col - 1))
+        if self.col + 1 <= cols:
+            bricks_to_add.add(self.row * cols + (self.col + 1))
+
+
+class LargeBombBrick(Brick):
+    def explode(self, rows, cols, bricks_to_add):
+        if self.row - 2 >= 0:
+            bricks_to_add.add((self.row - 2) * cols + self.col)
+        if self.row + 2 <= rows:
+            bricks_to_add.add((self.row + 2) * cols + self.col)
+        if self.col - 2 >= 0:
+            bricks_to_add.add(self.row * cols + (self.col - 2))
+        if self.col + 2 <= cols:
+            bricks_to_add.add(self.row * cols + (self.col + 2))
         for row in range(self.row - 1, self.row + 2):
             for col in range(self.col - 1, self.col + 2):
                 curr_num = row * cols + col
