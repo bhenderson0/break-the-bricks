@@ -50,7 +50,8 @@ def level_one(group):
 
 
 def level_two(group):
-    group.add(Brick(225, 200, constants.YELLOW))
+    group.add(Brick(225, 200, constants.YELLOW, 0, 0, 0))
+    return (1, 1)
 
 
 class LevelGenerator:
