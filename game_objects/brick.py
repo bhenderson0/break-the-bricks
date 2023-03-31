@@ -43,11 +43,11 @@ class BombBrick(Brick):
     def explode(self, rows, cols, bricks_to_add):
         if self.row - 1 >= 0:
             bricks_to_add.add((self.row - 1) * cols + self.col)
-        if self.row + 1 <= rows:
+        if self.row + 1 < rows:
             bricks_to_add.add((self.row + 1) * cols + self.col)
         if self.col - 1 >= 0:
             bricks_to_add.add(self.row * cols + (self.col - 1))
-        if self.col + 1 <= cols:
+        if self.col + 1 < cols:
             bricks_to_add.add(self.row * cols + (self.col + 1))
 
 
