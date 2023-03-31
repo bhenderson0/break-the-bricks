@@ -59,7 +59,7 @@ class Ball(pygame.sprite.Sprite):
 
     def collide_with_paddle(self, paddle):
         pos_diff = self.pos.x - paddle.pos.x
-        if math.fabs(pos_diff) < 5:
+        if math.fabs(pos_diff) < 4:
             self.vel = vec(0, -constants.BALL_SPEED)
         else:
             self.vel = vec(pos_diff / constants.BOUNCE, -constants.BALL_SPEED)

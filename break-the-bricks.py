@@ -72,23 +72,24 @@ while True:
 
     # Move player paddles and balls
     player.move()
-    ball.move(vec((player.pos.x, player.pos.y)))
 
     # Handle collisions
-    if pygame.sprite.collide_rect(player, ball):
-        ball.collide_with_paddle(player)
+    for _ in range(constants.BALL_SPEED_MULT):
+        ball.move(vec((player.pos.x, player.pos.y)))
+        if pygame.sprite.collide_rect(player, ball):
+            ball.collide_with_paddle(player)
 
-    bricks_hit = pygame.sprite.spritecollide(ball, brick_sprites, False)
-    if bricks_hit:
-        ball.collide_with_brick(bricks_hit[0])
-    exploded = set()
-    for brick in bricks_hit:
-        brick.explode(level_generator.rows, level_generator.cols, exploded)
-        explode_bricks(brick_sprites, bricks_hit, exploded)
-    for brick in bricks_hit:
-        score += 10
-        if (brick.damage() < 1):
-            brick_sprites.remove(brick)
+        bricks_hit = pygame.sprite.spritecollide(ball, brick_sprites, False)
+        if bricks_hit:
+            ball.collide_with_brick(bricks_hit[0])
+        exploded = set()
+        for brick in bricks_hit:
+            brick.explode(level_generator.rows, level_generator.cols, exploded)
+            explode_bricks(brick_sprites, bricks_hit, exploded)
+        for brick in bricks_hit:
+            score += 10
+            if (brick.damage() < 1):
+                brick_sprites.remove(brick)
 
     # Handle advancing to level or losing all balls
     if len(brick_sprites) == 0:

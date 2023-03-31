@@ -20,7 +20,8 @@ PLAYER_ACC = 1.00
 PLAYER_FRIC = -0.12
 
 # Ball movement
-BALL_SPEED = 4.5  # Above 5 causes issues
+BALL_SPEED = 3
+BALL_SPEED_MULT = 2
 BOUNCE = 8
 
 # Bricks size
