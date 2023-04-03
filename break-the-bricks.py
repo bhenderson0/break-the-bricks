@@ -81,6 +81,7 @@ while True:
     # Handle advancing to level or losing all balls
     if len(brick_sprites) == 0:
         level_generator.increment_level()
+        ball.toggle_released()
     if ball.number == 0:
         level_generator.reset_to_beginning()
         score = 0

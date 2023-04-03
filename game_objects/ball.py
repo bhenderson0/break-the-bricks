@@ -77,3 +77,6 @@ class Ball(pygame.sprite.Sprite):
             new_vy = self.vel.y
         self.vel = vec(new_vx, new_vy)
 
+    def toggle_released(self):
+        self.released = not self.released
+
